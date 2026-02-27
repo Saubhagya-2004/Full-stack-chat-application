@@ -18,7 +18,7 @@ const Chat = ({ user, setUser }) => {
   const pollingRef = useRef(false);
   const inputRef = useRef(null);
 
-  // ---------- data loading ----------
+  // data loading 
   const loadReactions = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/reactions`);
@@ -77,7 +77,7 @@ const Chat = ({ user, setUser }) => {
     start();
     const ri = setInterval(loadReactions, 5000);
     return () => { isMountedRef.current = false; clearInterval(ri); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const Chat = ({ user, setUser }) => {
 
   const handleLogout = () => { localStorage.removeItem('user'); setUser(''); };
 
-  // ---------- helpers ----------
+  //  helpers
   const fmtTime = (t) => new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const initial = (n) => n.charAt(0).toUpperCase();
   const userColor = (name) => {
@@ -142,7 +142,7 @@ const Chat = ({ user, setUser }) => {
     return c[Math.abs(h) % c.length];
   };
 
-  // ---------- render ----------
+  //  render
   return (
     <div className="flex flex-col h-screen w-full">
       {/* ── Header ── */}
@@ -217,7 +217,7 @@ const Chat = ({ user, setUser }) => {
                       onClick={(e) => { e.stopPropagation(); setActiveReactionPicker(showP ? null : rk); }}
                     >😊</button>
 
-                    {/* Reaction picker bar */}
+                    {/* Reaction picker */}
                     {showP && (
                       <div
                         className={`absolute bottom-[calc(100%+6px)] bg-[#233138] rounded-3xl px-2 py-1.5 flex gap-0.5 shadow-xl shadow-black/40 z-20 animate-fade-up ${own ? 'right-0' : 'left-0'}`}
