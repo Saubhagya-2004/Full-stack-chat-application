@@ -1,28 +1,18 @@
 import { Router } from 'express';
 import {
-    sendMessage,
-    addReaction,
-    getReactions,
-    pollMessages,
     getMessages,
     clearMessages,
+    getReactions,
     healthCheck,
 } from '../controller/chatController.js';
 
 const router = Router();
 
-// Message routes
-router.post('/send', sendMessage);
-router.get('/poll', pollMessages);
+// REST fallback endpoints (GET only — sending/reacting is now via WebSocket)
 router.get('/messages', getMessages);
 router.delete('/messages', clearMessages);
-
-// Reaction routes
-router.post('/react', addReaction);
 router.get('/reactions', getReactions);
-
-// Health & info
 router.get('/health', healthCheck);
-router.get('/', (req, res) => res.json({ message: 'Chat API is running' }));
+router.get('/', (req, res) => res.json({ message: 'Chat API running — use WebSocket for real-time' }));
 
 export default router;
